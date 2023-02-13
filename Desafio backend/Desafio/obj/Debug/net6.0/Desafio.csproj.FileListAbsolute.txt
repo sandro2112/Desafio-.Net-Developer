@@ -67,3 +67,4 @@ D:\Sandro\Trabajos\Ofertas Laborales\SOFTEK\Github\Desafio backend\Desafio\bin\D
 D:\Sandro\Trabajos\Ofertas Laborales\SOFTEK\Github\Desafio backend\Desafio\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
 D:\Sandro\Trabajos\Ofertas Laborales\SOFTEK\Github\Desafio backend\Desafio\bin\Debug\net6.0\Newtonsoft.Json.dll
 D:\Sandro\Trabajos\Ofertas Laborales\SOFTEK\Github\Desafio backend\Desafio\obj\Debug\net6.0\Desafio.csproj.AssemblyReference.cache
+D:\Sandro\Trabajos\Ofertas Laborales\SOFTEK\Github\Desafio backend\Desafio\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.InMemory.dll

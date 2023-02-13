@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Desafio.Models;
+using Desafio.Repository;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 
@@ -10,6 +11,19 @@ namespace Desafio.Controllers
     [Route("asesor")]
     public class AsesorController : ControllerBase
     {
+        public readonly IAsesorRepository _asesorRepository;
+        public AsesorController(IAsesorRepository asesorRepository)
+        {
+            _asesorRepository = asesorRepository;
+        }
+
+        [HttpGet]
+        [Route("listarAsesoresEF")]
+        public ActionResult<List<Asesor>> Get()
+        {
+            return Ok(_asesorRepository.GetAsesores());
+        }
+
         [HttpGet]
         [Route("listar")]
         public dynamic listarAsesor()
@@ -68,7 +82,7 @@ namespace Desafio.Controllers
 
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("eliminar")]
         //[Authorize]
         public dynamic eliminarAsesor(Asesor asesor)
