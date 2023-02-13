@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Desafio.Models;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Desafio.Controllers
 {
@@ -16,14 +19,14 @@ namespace Desafio.Controllers
             {
                 new Asesor
                 {
-                    id = 1,
+                    id_asesor = 1,
                     correo = "aessor@gmail.com",
                     edad = "19",
                     nombre = "Sandro Ramos"
                 },
                 new Asesor
                 {
-                    id = 2,
+                    id_asesor = 2,
                     correo = "aessor2@gmail.com",
                     edad = "29",
                     nombre = "Sandro Saravia"
@@ -38,7 +41,7 @@ namespace Desafio.Controllers
         [Route("guardar")]
         public dynamic guardarAsesor(Asesor asesor)
         {
-            asesor.id = 3;
+            asesor.id_asesor = 3;
 
             return new
             {
@@ -57,7 +60,7 @@ namespace Desafio.Controllers
 
             return new Asesor
             {
-                id = _id,
+                id_asesor = _id,
                 correo = "aessor@gmail.com",
                 edad = "19",
                 nombre = "Sandro Ramos"
@@ -67,17 +70,23 @@ namespace Desafio.Controllers
 
         [HttpPost]
         [Route("eliminar")]
+        //[Authorize]
         public dynamic eliminarAsesor(Asesor asesor)
         {
-            string token = Request.Headers.Where(x => x.Key == "Authorization").FirstOrDefault().Value;
-            //eliminas en la db
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
 
-            if(token != "sandro123.")
+            var rToken = Jwt.validarToken(identity);
+
+            if (!rToken.success) return rToken;
+
+            Usuario usuario = rToken.result;
+
+            if(usuario.rol != "administrador")
             {
                 return new
                 {
-                    succes = false,
-                    message = "token incorrecto",
+                    success = false,
+                    message = "No tiene permiso para esta api",
                     result = ""
                 };
             }
